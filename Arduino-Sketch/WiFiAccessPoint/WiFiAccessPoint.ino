@@ -49,9 +49,9 @@ ESP8266WebServer server(80);
    connected to this access point to see it.
 */
 void handleRoot() {
-  char temp[400];
-  snprintf(temp,400,
-  "<h1>You are connected, Hi !</h1>"
+  char temp[200];
+  snprintf(temp,200,
+  "<h1>Hi.. You are connected to Handiko's ESP8266-AP</h1>"
   );
   server.send(200, "text/html", temp);
 }
