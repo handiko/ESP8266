@@ -15,4 +15,13 @@ void loop() {
   delayMicroseconds(500);
   digitalWrite(pin,LOW);
   delayMicroseconds(500);
+  
+  digitalWrite(pin,HIGH);
+  delayMicroseconds(250);
+  digitalWrite(pin,LOW);
+  delayMicroseconds(250);
+  digitalWrite(pin,HIGH);
+  delayMicroseconds(250);
+  digitalWrite(pin,LOW);
+  delayMicroseconds(250);
 }
