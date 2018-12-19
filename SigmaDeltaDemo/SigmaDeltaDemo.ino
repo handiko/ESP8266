@@ -2,10 +2,12 @@
 
 #include "sigma_delta.h"
 
+char pin = 2;
+
 void setup() {
 
   Serial.begin(115200);
-  pinMode(LED_BUILTIN, OUTPUT); // blinkie & sigma-delta mix
+  pinMode(pin, OUTPUT); // blinkie & sigma-delta mix
   uint32_t reqFreq = 1000;
   uint32_t realFreq;
 
@@ -23,7 +25,7 @@ void loop() {
 
   Serial.println("Attaching the built in led to the sigma delta source now\n");
   Serial.printf("Current duty = %i, prescaler = %i\n", sigmaDeltaRead(), sigmaDeltaGetPrescaler());
-  sigmaDeltaAttachPin(LED_BUILTIN);
+  sigmaDeltaAttachPin(pin);
 
   Serial.println("Dimming builtin led...\n");
   for (iRepeat = 0; iRepeat < 10; iRepeat++) {
@@ -40,9 +42,9 @@ void loop() {
   }
 
   Serial.println("Detaching builtin led & playing a blinkie\n");
-  sigmaDeltaDetachPin(LED_BUILTIN);
+  sigmaDeltaDetachPin(pin);
   for (iRepeat = 0; iRepeat < 20; iRepeat++) {
-    digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+    digitalWrite(pin, !digitalRead(pin));
     delay(500);
   }
 }
