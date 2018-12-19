@@ -11,7 +11,6 @@ void setup() {
 
 // the loop function runs over and over again forever
 void loop() { 
-  digitalWrite(LED_BUILTIN, HIGH); 
   digitalWrite(pin,HIGH);
   delayMicroseconds(500);
   digitalWrite(pin,LOW);
