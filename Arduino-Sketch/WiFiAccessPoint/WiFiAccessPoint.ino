@@ -70,8 +70,18 @@ void setup() {
   server.on("/", handleRoot);
   server.begin();
   Serial.println("HTTP server started");
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(50);
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(50);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(50);
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(2000);
+    
   server.handleClient();
 }
