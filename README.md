@@ -1,2 +1,3 @@
 # ESP8266
-Practicing with ESP826
+Practicing with ESP8266
+...
