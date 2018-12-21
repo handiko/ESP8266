@@ -36,7 +36,7 @@
 
 #ifndef APSSID
 #define APSSID "ESP8266-AP"
-#define APPSK  "085741249084"
+#define APPSK  "Metallica"
 #endif
 
 /* Set these to your desired credentials. */
