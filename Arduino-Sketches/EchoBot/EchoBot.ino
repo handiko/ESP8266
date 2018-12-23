@@ -15,8 +15,8 @@
 
 
 // Initialize Wifi connection to the router
-char ssid[] = "My-WiFi";              // your network SSID (name)
-char password[] = "Metallica";                              // your network key
+char* ssid = "My-WiFi";              // your network SSID (name)
+char* password = "Metallica";                              // your network key
 
 
 
@@ -48,9 +48,10 @@ void setup() {
   delay(3000);
   
   // attempt to connect to Wifi network:
+  WiFi.begin(ssid, password);
   Serial.print("Connecting Wifi: ");
   Serial.println(ssid);
-  while (WiFi.begin(ssid, password) != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -72,6 +73,4 @@ void loop() {
     Bot_EchoMessages();   // reply to message with Echo
     Bot_lasttime = millis();
   }
-
-  bot.sendMessage()
 }
