@@ -40,15 +40,15 @@ bool Start = false;
 void Bot_ExecMessages() {
   for (int i = 1; i < bot.message[0][0].toInt() + 1; i++)      {
     bot.message[i][5]=bot.message[i][5].substring(1,bot.message[i][5].length());
-    if (bot.message[i][5] == "\/ledon") {
+    if (bot.message[i][5] == "/ledon") {
       digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
       bot.sendMessage(bot.message[i][4], "Led is ON", "");
     }
-    if (bot.message[i][5] == "\/ledoff") {
+    if (bot.message[i][5] == "/ledoff") {
       digitalWrite(LED_BUILTIN, LOW);    // turn the LED off (LOW is the voltage level)
       bot.sendMessage(bot.message[i][4], "Led is OFF", "");
     }
-    if (bot.message[i][5] == "\/start") {
+    if (bot.message[i][5] == "/start") {
       String wellcome = "Wellcome from FlashLedBot, your personal Bot on ESP8266 board";
       String wellcome1 = "/ledon : to switch the Led ON";
       String wellcome2 = "/ledoff : to switch the Led OFF";
