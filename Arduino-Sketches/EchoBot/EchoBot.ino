@@ -15,8 +15,8 @@
 
 
 // Initialize Wifi connection to the router
-char* ssid = "My-WiFi";              // your network SSID (name)
-char* password = "Metallica";                              // your network key
+const char* ssid = "My-WiFi";              // your network SSID (name)
+const char* password = "Metallica";                              // your network key
 
 
 
