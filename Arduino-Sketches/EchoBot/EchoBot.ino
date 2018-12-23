@@ -1,76 +1,64 @@
 /*******************************************************************
- *  this is a basic example how to program a Telegram Bot          *
- *  using TelegramBOT library on ESP8266                           *
- *                                                                 *
- *  Open a conversation with the bot, it will echo your messages   *
- *  https://web.telegram.org/#/im?p=@EchoBot_bot                   *                                                                 
- *                                                                 *
- *  written by Giacarlo Bacchio                                    *
- *******************************************************************/
-
-
+*  An example of bot that echos back any messages received         *
+*                                                                  *
+*  written by Giacarlo Bacchio (Gianbacchio on Github)             *
+*  adapted by Brian Lough                                          *
+*******************************************************************/
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
-#include <ESP8266TelegramBOT.h>
-
+#include <UniversalTelegramBot.h>
+#include <ArduinoJson.h>
 
 // Initialize Wifi connection to the router
-const char* ssid = "My-WiFi";              // your network SSID (name)
-const char* password = "Metallica";                              // your network key
-
-
+char ssid[] = "My-WiFi";     // your network SSID (name)
+char password[] = "Metallica"; // your network key
 
 // Initialize Telegram BOT
-#define BOTtoken "769684434:AAHvbkl7s-SgbrnNDySn0YpeA9CJEsYFsWg"  //token of TestBOT
-#define BOTname "Handiko Echo Bot"
-#define BOTusername "handiko1_bot"
-TelegramBOT bot(BOTtoken, BOTname, BOTusername);
+#define BOTtoken "769684434:AAHvbkl7s-SgbrnNDySn0YpeA9CJEsYFsWg"  // your Bot Token (Get from Botfather)
+
+WiFiClientSecure client;
+UniversalTelegramBot bot(BOTtoken, client);
 
 int Bot_mtbs = 1000; //mean time between scan messages
 long Bot_lasttime;   //last time messages' scan has been done
 
-
-/********************************************
- * EchoMessages - function to Echo messages *
- ********************************************/
-void Bot_EchoMessages() {
-
-  for (int i = 1; i < bot.message[0][0].toInt() + 1; i++)      {
-    bot.sendMessage(bot.message[i][4], bot.message[i][5], "");
-  }
-  bot.message[0][0] = "";   // All messages have been replied - reset new messages
-}
-
-
 void setup() {
-
   Serial.begin(115200);
-  delay(3000);
-  
-  // attempt to connect to Wifi network:
-  WiFi.begin(ssid, password);
+
+  // Set WiFi to station mode and disconnect from an AP if it was Previously
+  // connected
+  WiFi.mode(WIFI_STA);
+  WiFi.disconnect();
+  delay(100);
+
+  // Attempt to connect to Wifi network:
   Serial.print("Connecting Wifi: ");
   Serial.println(ssid);
+  WiFi.begin(ssid, password);
+
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
+
   Serial.println("");
   Serial.println("WiFi connected");
-  Serial.println("IP address: ");
-  IPAddress ip = WiFi.localIP();
-  Serial.println(ip);
-
-  bot.begin();      // launch Bot functionalities
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
 }
 
-
-
 void loop() {
-
   if (millis() > Bot_lasttime + Bot_mtbs)  {
-    bot.getUpdates(bot.message[0][1]);   // launch API GetUpdates up to xxx message
-    Bot_EchoMessages();   // reply to message with Echo
+    int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+
+    while(numNewMessages) {
+      Serial.println("got response");
+      for (int i=0; i<numNewMessages; i++) {
+        bot.sendMessage(bot.messages[i].chat_id, bot.messages[i].text, "");
+      }
+      numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+    }
+
     Bot_lasttime = millis();
   }
 }
