@@ -15,16 +15,16 @@
 
 
 // Initialize Wifi connection to the router
-char ssid[] = "xxxxxxxxxxxxxxxxxxxxxx";              // your network SSID (name)
-char pass[] = "yyyyyyyy";                              // your network key
+char ssid[] = "My-WiFi";              // your network SSID (name)
+char pass[] = "Metallica";                              // your network key
 
 
 
 // Initialize Telegram BOT
 
-#define BOTtoken "134745667:AAETzUWRQdb9xbMX_s-q_50U6ffgXcW3ldg"  //token of FlashledBOT
-#define BOTname "FlashledBot"
-#define BOTusername "FlashledBot_bot"
+#define BOTtoken "769684434:AAHvbkl7s-SgbrnNDySn0YpeA9CJEsYFsWg"  //token of TestBOT
+#define BOTname "Handiko Echo Bot"
+#define BOTusername "handiko1_bot"
 
 TelegramBOT bot(BOTtoken, BOTname, BOTusername);
 
@@ -41,11 +41,11 @@ void Bot_ExecMessages() {
   for (int i = 1; i < bot.message[0][0].toInt() + 1; i++)      {
     bot.message[i][5]=bot.message[i][5].substring(1,bot.message[i][5].length());
     if (bot.message[i][5] == "\/ledon") {
-      digitalWrite(13, HIGH);   // turn the LED on (HIGH is the voltage level)
+      digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
       bot.sendMessage(bot.message[i][4], "Led is ON", "");
     }
     if (bot.message[i][5] == "\/ledoff") {
-      digitalWrite(13, LOW);    // turn the LED off (LOW is the voltage level)
+      digitalWrite(LED_BUILTIN, LOW);    // turn the LED off (LOW is the voltage level)
       bot.sendMessage(bot.message[i][4], "Led is OFF", "");
     }
     if (bot.message[i][5] == "\/start") {
@@ -80,6 +80,7 @@ void setup() {
   Serial.println(ip);
   bot.begin();      // launch Bot functionalities
   pinMode(2, OUTPUT); // initialize digital pin 2 as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 
