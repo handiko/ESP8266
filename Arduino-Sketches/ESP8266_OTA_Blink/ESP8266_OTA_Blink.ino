@@ -33,7 +33,7 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   ArduinoOTA.setHostname("ESP8266");
-  ArduinoOTA.setPassword("esp8266");
+  //ArduinoOTA.setPassword("2010koko");
   ArduinoOTA.onStart([]() {
     Serial.println("Start");
   });
@@ -60,7 +60,7 @@ void setup() {
 }
 
 unsigned long previousTime = millis();
-const unsigned long interval = 1000;
+const unsigned long interval = 300;
   
 void loop() {
   ArduinoOTA.handle();
