@@ -4,6 +4,7 @@
  */
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
+#include <ESPmDNS.h>
 
 extern "C" {
   #include <user_interface.h>
