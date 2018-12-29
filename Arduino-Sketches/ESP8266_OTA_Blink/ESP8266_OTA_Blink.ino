@@ -5,6 +5,9 @@
 #include <ESP8266WiFiMulti.h>
 #include <ArduinoOTA.h>
 
+#include <FS.h>
+#include <WebSocketsServer.h>
+
 ESP8266WiFiMulti wifiMulti;
 
 const byte led = LED_BUILTIN;
