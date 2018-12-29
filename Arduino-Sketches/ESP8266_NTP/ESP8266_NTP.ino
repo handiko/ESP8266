@@ -19,6 +19,8 @@ void starUDP();
 void setup() {
   Serial.begin(115200);
   delay(10);
+
+  Serial.flush();
   Serial.println("\r\n");
 
   startWiFi();
@@ -71,7 +73,7 @@ void loop() {
 
   if(actualTime != prevActualTime && timeUNIX != 0) {
     prevActualTime = actualTime;
-    Serial.printf("\rUTC time:\t%d:%d:%d ", getHours(actualTime), getMinutes(actualTime), getSeconds(actualTime));
+    Serial.printf("\nUTC time:\t%d:%d:%d ", getHours(actualTime), getMinutes(actualTime), getSeconds(actualTime));
   }
 }
 
@@ -89,7 +91,7 @@ void startWiFi() {
   Serial.println("\r\n");
   Serial.print("Connected to ");
   Serial.println(WiFi.SSID());
-  Serial.print("IP address:\t");
+  Serial.print("IP address: ");
   Serial.print(WiFi.localIP());
   Serial.println("\r\n");
 }
@@ -97,7 +99,7 @@ void startWiFi() {
 void startUDP() {
   Serial.println("Starting UDP");
   UDP.begin(123);
-  Serial.print("Local port:\t");
+  Serial.print("Local port: ");
   Serial.println(UDP.localPort());
   Serial.println();
 }
