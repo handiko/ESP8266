@@ -34,29 +34,23 @@
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
 
-// You should get Auth Token in the Blynk App.
-// Go to the Project Settings (nut icon).
 char auth[] = "a833dd5d7bee4d22801ee6f363f550a2";
 
-// Your WiFi credentials.
-// Set password to "" for open networks.
-char ssid[] = "My-WiFi";
-char pass[] = "Metallica";
+char ssid[] = "78480d";
+char pass[] = "houseblend14";
 
-// Use Virtual pin 5 for uptime display
 #define PIN_UPTIME V5
 
-// This function tells Arduino what to do if there is a Widget
-// which is requesting data for Virtual Pin (5)
 BLYNK_READ(PIN_UPTIME)
 {
-  // This command writes Arduino's uptime in seconds to Virtual Pin (5)
   Blynk.virtualWrite(PIN_UPTIME, millis() / 1000);
 }
 
 void setup()
 {
-  // Debug console
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, HIGH);
+  
   Serial.begin(115200);
 
   Blynk.begin(auth, ssid, pass);
@@ -64,5 +58,6 @@ void setup()
 
 void loop()
 {
+  digitalWrite(LED_BUILTIN, HIGH);
   Blynk.run();
 }
