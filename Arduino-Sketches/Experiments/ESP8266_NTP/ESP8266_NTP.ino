@@ -78,7 +78,7 @@ void loop() {
 }
 
 void startWiFi() {
-  wifiMulti.addAP("My-WiFi", "Metallica");
+  wifiMulti.addAP("YC1SDL", "Metallica");
   wifiMulti.addAP("ssid_from_AP_2", "your_password_for_AP_2");
   wifiMulti.addAP("ssid_from_AP_3", "your_password_for_AP_3");
   
