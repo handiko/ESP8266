@@ -19,7 +19,7 @@ void setup(void) {
   delay(10);
   Serial.println('\n');
 
-  wifiMulti.addAP("My-WiFi", "Metallica");
+  wifiMulti.addAP("YC1SDL", "Metallica");
   wifiMulti.addAP("ssid_from_AP_2", "your_password_for_AP_2");
   wifiMulti.addAP("ssid_from_AP_3", "your_password_for_AP_3");
 
@@ -54,7 +54,7 @@ void loop(void){
 }
 
 void handleRoot() {
-  server.send(200, "text/plain", "Hello world!");
+  server.send(200, "text/plain", "Hello world! .... test");
 }
 
 void handleNotFound(){
