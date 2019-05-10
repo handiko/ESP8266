@@ -17,6 +17,8 @@ void startWiFi();
 void starUDP();
 
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+  
   Serial.begin(115200);
   delay(10);
 
@@ -39,7 +41,7 @@ void setup() {
   sendNTPpacket(timeServerIP);
 }
 
-unsigned long intervalNTP = 60000;
+unsigned long intervalNTP = 6000;
 unsigned long prevNTP = 0;
 unsigned long lastNTPResponse = millis();
 uint32_t timeUNIX = 0;
@@ -53,6 +55,11 @@ void loop() {
     prevNTP = currentMillis;
     Serial.println("\r\nSending NTP request");
     sendNTPpacket(timeServerIP);
+
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(100);
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(100);
   }
 
   uint32_t time = getTime();
@@ -62,6 +69,15 @@ void loop() {
     Serial.print("NTP response: ");
     Serial.println(timeUNIX);
     lastNTPResponse = currentMillis;
+
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(50);
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(50);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(50);
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(50);
   }
   else if((currentMillis - lastNTPResponse) > 3600000) {
     Serial.println("More than 1 hour since last NTP Response. Rebooting.");
