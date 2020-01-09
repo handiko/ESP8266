@@ -11,6 +11,7 @@ WiFiUDP UDP;
 IPAddress timeServerIP;
 const char* NTPServerName = "time.nist.gov";
 const int NTP_PACKET_SIZE = 48;
+const int GMT = 7;
 byte NTPBuffer[NTP_PACKET_SIZE];
 
 void startWiFi();
@@ -53,7 +54,7 @@ void loop() {
 
   if(currentMillis - prevNTP > intervalNTP) {
     prevNTP = currentMillis;
-    Serial.println("\r\nSending NTP request");
+    //Serial.println("\r\nSending NTP request");
     sendNTPpacket(timeServerIP);
 
     digitalWrite(LED_BUILTIN, LOW);
@@ -66,8 +67,8 @@ void loop() {
 
   if(time) {
     timeUNIX = time;
-    Serial.print("NTP response: ");
-    Serial.println(timeUNIX);
+    //Serial.print("NTP response: ");
+    //Serial.println(timeUNIX);
     lastNTPResponse = currentMillis;
 
     digitalWrite(LED_BUILTIN, LOW);
@@ -89,12 +90,22 @@ void loop() {
 
   if(actualTime != prevActualTime && timeUNIX != 0) {
     prevActualTime = actualTime;
-    Serial.printf("\nUTC time:\t%d:%d:%d ", getHours(actualTime), getMinutes(actualTime), getSeconds(actualTime));
+
+    digitalWrite(LED_BUILTIN, LOW);
+    Serial.printf("\nUTC time:  %02d:%02d:%02d ", getHours(actualTime), getMinutes(actualTime), getSeconds(actualTime));
+    Serial.printf("\t\tLocal time:  %02d:%02d:%02d ", getHours(actualTime) + GMT, getMinutes(actualTime), getSeconds(actualTime));
+    delay(100);
+  }
+  
+  else
+  {
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(100);
   }
 }
 
 void startWiFi() {
-  wifiMulti.addAP("YC1SDL", "Metallica");
+  wifiMulti.addAP("Ruang Hardware", "efishery2019!");
   wifiMulti.addAP("ssid_from_AP_2", "your_password_for_AP_2");
   wifiMulti.addAP("ssid_from_AP_3", "your_password_for_AP_3");
   
